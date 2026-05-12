@@ -268,6 +268,22 @@ document.getElementById("sent").innerText =
 
 }
 
+async function addLetter(){
+
+await fetch(
+"https://api.counterapi.dev/v1/zuzanna/letters-sent/up",
+{
+method:"POST",
+headers:{
+Authorization:"Bearer ut_NYXLeuGC92OJxSLcsUCwLMlXgFjWIwkJgHlbqCKb"
+}
+}
+);
+
+loadCounts();
+
+}
+
 loadCounts();
 
 setInterval(loadCounts,5000);
