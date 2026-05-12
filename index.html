@@ -259,38 +259,39 @@ Get A Letter © 2025
 
 const API_TOKEN = "ut_NYXLeuGC92OJxSLcsUCwLMlXgFjWIwkJgHlbqCKb";
 
-const BASE_URL = "https://api.counterapi.dev/v1/zuzanna/letters-sent";
+const GET_URL =
+"https://api.counterapi.dev/v1/zuzanna/letters-sent";
 
-async function updateCounter() {
+const UP_URL =
+"https://api.counterapi.dev/v1/zuzanna/letters-sent/up";
 
-try {
+async function loadCounts(){
 
-const response = await fetch(
-`${BASE_URL}/up`,
-{
-method: "POST",
-headers: {
-Authorization: `Bearer ${API_TOKEN}`
-}
-}
-);
-
-const data = await response.json();
+const res = await fetch(GET_URL);
+const data = await res.json();
 
 document.getElementById("sent").innerText =
 (data.data?.count || 0).toLocaleString();
 
-} catch(error) {
+}
 
-console.error(error);
+async function addLetter(){
 
-document.getElementById("sent").innerText = "0";
+await fetch(
+UP_URL,
+{
+method:"POST",
+headers:{
+Authorization:`Bearer ${API_TOKEN}`
+}
+}
+);
+
+loadCounts();
 
 }
 
-}
-
-updateCounter();
+loadCounts();
 
 </script>
 
