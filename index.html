@@ -256,7 +256,7 @@ Get A Letter © 2025
   <button
 onclick="addLetter()"
 style="
-opacity:0.02;
+opacity:0.06;
 margin-top:12px;
 border:none;
 background:none;
@@ -291,15 +291,16 @@ document.getElementById("sent").innerText =
 
 async function addLetter(){
 
-await fetch(
+const response = await fetch(
 UP_URL,
 {
-method:"POST",
-headers:{
-Authorization:`Bearer ${API_TOKEN}`
-}
+method:"POST"
 }
 );
+
+const data = await response.json();
+
+console.log(data);
 
 loadCounts();
 
