@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Letters Counter</title>
+<title>Get A Letter</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,109 +18,186 @@ box-sizing:border-box;
 }
 
 body{
-font-family:'Inter',sans-serif;
-height:100vh;
+background:#f8f5f1;
 overflow:hidden;
-background:
-radial-gradient(circle at top left,#3a0ca3 0%,transparent 30%),
-radial-gradient(circle at bottom right,#7209b7 0%,transparent 30%),
-#050505;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
+font-family:'Inter',sans-serif;
+color:#1e1e1e;
+height:100vh;
+position:relative;
 }
 
-.bg{
+.grain{
 position:absolute;
-width:100%;
-height:100%;
-backdrop-filter:blur(120px);
+inset:0;
+opacity:0.04;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+pointer-events:none;
 }
 
 .container{
 position:relative;
-display:flex;
-gap:40px;
-flex-wrap:wrap;
-justify-content:center;
 z-index:2;
-padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+height:100vh;
+padding:8vw;
+gap:60px;
 }
 
-.card{
-width:320px;
-padding:40px;
-border-radius:32px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(30px);
-border:1px solid rgba(255,255,255,0.1);
-box-shadow:
-0 0 80px rgba(255,255,255,0.05),
-0 0 120px rgba(114,9,183,0.2);
-text-align:center;
-transition:0.4s;
+.left{
+max-width:700px;
 }
 
-.card:hover{
-transform:translateY(-6px) scale(1.02);
+.icon{
+font-size:42px;
+margin-bottom:24px;
+opacity:0.9;
 }
 
-.label{
-font-size:13px;
-letter-spacing:3px;
-opacity:0.7;
-margin-bottom:18px;
-}
-
-.count{
-font-size:72px;
-font-weight:800;
-line-height:1;
-margin-bottom:10px;
+h1{
+font-family:'Cormorant Garamond',serif;
+font-size:110px;
+line-height:0.9;
+font-weight:600;
+letter-spacing:-3px;
+margin-bottom:28px;
 }
 
 .sub{
+font-size:28px;
+line-height:1.4;
+margin-bottom:20px;
+font-weight:300;
+}
+
+.sub b{
+font-weight:600;
+}
+
+.small{
+font-size:18px;
 opacity:0.5;
+letter-spacing:1px;
+}
+
+.stats{
+display:flex;
+gap:22px;
+margin-top:50px;
+flex-wrap:wrap;
+}
+
+.card{
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(10px);
+padding:28px 34px;
+border-radius:28px;
+min-width:240px;
+box-shadow:
+0 10px 40px rgba(0,0,0,0.06);
+border:1px solid rgba(0,0,0,0.04);
+}
+
+.label{
+font-size:12px;
+letter-spacing:2px;
+opacity:0.45;
+margin-bottom:12px;
+}
+
+.count{
+font-size:56px;
+font-weight:600;
+margin-bottom:6px;
+}
+
+.desc{
 font-size:14px;
+opacity:0.5;
 }
 
-.glow{
-position:absolute;
-width:400px;
-height:400px;
-background:#7209b7;
-filter:blur(180px);
-opacity:0.25;
-border-radius:50%;
-top:-120px;
-left:-120px;
-animation:float 8s ease-in-out infinite;
+.right{
+position:relative;
+width:500px;
+height:500px;
 }
 
-.glow2{
+.paper{
 position:absolute;
-width:300px;
-height:300px;
-background:#4361ee;
-filter:blur(160px);
-opacity:0.2;
-border-radius:50%;
-bottom:-100px;
-right:-100px;
-animation:float2 10s ease-in-out infinite;
+width:260px;
+background:#fffdf9;
+padding:28px;
+border-radius:4px;
+box-shadow:
+0 30px 60px rgba(0,0,0,0.08);
+color:#444;
+font-family:'Cormorant Garamond',serif;
+font-size:20px;
+line-height:1.5;
+animation:float 6s ease-in-out infinite;
+}
+
+.paper:nth-child(1){
+top:20px;
+left:40px;
+transform:rotate(-8deg);
+}
+
+.paper:nth-child(2){
+top:180px;
+left:180px;
+transform:rotate(10deg);
+animation-delay:2s;
+}
+
+.paper:nth-child(3){
+top:320px;
+left:0px;
+transform:rotate(-5deg);
+animation-delay:4s;
 }
 
 @keyframes float{
-0%{transform:translateY(0px)}
-50%{transform:translateY(40px)}
-100%{transform:translateY(0px)}
+0%{transform:translateY(0px) rotate(-4deg);}
+50%{transform:translateY(-14px) rotate(2deg);}
+100%{transform:translateY(0px) rotate(-4deg);}
 }
 
-@keyframes float2{
-0%{transform:translateY(0px)}
-50%{transform:translateY(-30px)}
-100%{transform:translateY(0px)}
+@media(max-width:1000px){
+
+body{
+overflow:auto;
+}
+
+.container{
+flex-direction:column;
+justify-content:center;
+padding:80px 30px;
+height:auto;
+}
+
+h1{
+font-size:72px;
+}
+
+.sub{
+font-size:22px;
+}
+
+.right{
+width:100%;
+height:500px;
+}
+
+.stats{
+flex-direction:column;
+}
+
+.card{
+width:100%;
+}
+
 }
 
 </style>
@@ -128,22 +205,59 @@ animation:float2 10s ease-in-out infinite;
 
 <body>
 
-<div class="bg"></div>
-<div class="glow"></div>
-<div class="glow2"></div>
+<div class="grain"></div>
 
 <div class="container">
+
+<div class="left">
+
+<div class="icon">✉️</div>
+
+<h1>
+Get A Letter
+</h1>
+
+<div class="sub">
+We write and send <b>REAL</b> letters.
+</div>
+
+<div class="small">
+Join. Get some. Send some.
+</div>
+
+<div class="stats">
 
 <div class="card">
 <div class="label">LETTERS SENT</div>
 <div id="sent" class="count">0</div>
-<div class="sub">community letters sent</div>
+<div class="desc">letters sent by the community</div>
 </div>
 
 <div class="card">
 <div class="label">LETTERS DELIVERED</div>
 <div id="delivered" class="count">0</div>
-<div class="sub">letters successfully delivered</div>
+<div class="desc">letters delivered worldwide</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="paper">
+Dear stranger,<br><br>
+I hope this letter finds you exactly when you need it.
+</div>
+
+<div class="paper">
+There is something beautiful about words arriving slowly.
+</div>
+
+<div class="paper">
+Someone, somewhere, took the time to write to you.
+</div>
+
 </div>
 
 </div>
