@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Letters Counter</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+height:100vh;
+overflow:hidden;
+background:
+radial-gradient(circle at top left,#3a0ca3 0%,transparent 30%),
+radial-gradient(circle at bottom right,#7209b7 0%,transparent 30%),
+#050505;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.bg{
+position:absolute;
+width:100%;
+height:100%;
+backdrop-filter:blur(120px);
+}
+
+.container{
+position:relative;
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+justify-content:center;
+z-index:2;
+padding:20px;
+}
+
+.card{
+width:320px;
+padding:40px;
+border-radius:32px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(30px);
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:
+0 0 80px rgba(255,255,255,0.05),
+0 0 120px rgba(114,9,183,0.2);
+text-align:center;
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-6px) scale(1.02);
+}
+
+.label{
+font-size:13px;
+letter-spacing:3px;
+opacity:0.7;
+margin-bottom:18px;
+}
+
+.count{
+font-size:72px;
+font-weight:800;
+line-height:1;
+margin-bottom:10px;
+}
+
+.sub{
+opacity:0.5;
+font-size:14px;
+}
+
+.glow{
+position:absolute;
+width:400px;
+height:400px;
+background:#7209b7;
+filter:blur(180px);
+opacity:0.25;
+border-radius:50%;
+top:-120px;
+left:-120px;
+animation:float 8s ease-in-out infinite;
+}
+
+.glow2{
+position:absolute;
+width:300px;
+height:300px;
+background:#4361ee;
+filter:blur(160px);
+opacity:0.2;
+border-radius:50%;
+bottom:-100px;
+right:-100px;
+animation:float2 10s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0px)}
+50%{transform:translateY(40px)}
+100%{transform:translateY(0px)}
+}
+
+@keyframes float2{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-30px)}
+100%{transform:translateY(0px)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<div class="container">
+
+<div class="card">
+<div class="label">LETTERS SENT</div>
+<div id="sent" class="count">0</div>
+<div class="sub">community letters sent</div>
+</div>
+
+<div class="card">
+<div class="label">LETTERS DELIVERED</div>
+<div id="delivered" class="count">0</div>
+<div class="sub">letters successfully delivered</div>
+</div>
+
+</div>
+
+<script>
+
+const SENT_URL = "https://api.counterapi.dev/v1/zuzanna/letters-sent";
+const DELIVERED_URL = "https://api.counterapi.dev/v1/zuzanna/letters-delivered";
+
+async function loadCounts(){
+
+const sentRes = await fetch(SENT_URL);
+const sentData = await sentRes.json();
+
+const deliveredRes = await fetch(DELIVERED_URL);
+const deliveredData = await deliveredRes.json();
+
+document.getElementById("sent").innerText =
+sentData.data?.count || 0;
+
+document.getElementById("delivered").innerText =
+deliveredData.data?.count || 0;
+
+}
+
+loadCounts();
+
+setInterval(loadCounts,5000);
+
+</script>
+
+</body>
+</html>
